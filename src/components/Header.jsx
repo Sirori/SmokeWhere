@@ -3,6 +3,9 @@ import SmokeWhere from "@/assets/smokeWhere.svg";
 import info from "@/assets/info_w.svg";
 import cs from "@/assets/cs_w.svg";
 import search from "@/assets/search_w.svg";
+
+import React, { useState } from "react";
+import InquireModal from "./modal/InquireModal";
 // import styled from 'styled-components/native';
 
 const HeaderContainer = styled.div`
@@ -116,6 +119,11 @@ const SearchButton = styled.button`
 `;
 
 function Header() {
+  const [isModalOpen, setIsModalOpen] = useState(false); // 모달창 상태 관리
+
+  const toggleModal = () => {
+    setIsModalOpen(!isModalOpen);
+  };
   return (
     <HeaderContainer>
       {/* <img src={SmokeWhere} alt="" /> */}
@@ -124,14 +132,15 @@ function Header() {
         <HeaderTitle>SmokeWhere</HeaderTitle> {/* 텍스트 추가 */}
         <InfoButton></InfoButton>
       </HeaderWrap1>
-
       <HeaderWrap2>
         <HeaderWrap3>
           <SearchInput placeholder="장소 검색하기" />
           <SearchButton></SearchButton>
         </HeaderWrap3>
-        <CsButton></CsButton>
+        <CsButton onClick={toggleModal}></CsButton>
       </HeaderWrap2>
+      {isModalOpen && <InquireModal onClose={toggleModal} />}{" "}
+      {/* 조건부 렌더링으로 모달창 표시 */}
       {/* <input type="text" /> */}
     </HeaderContainer>
   );

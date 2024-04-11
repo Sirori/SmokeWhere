@@ -4,6 +4,9 @@ import styled from "styled-components";
 import map from "@/assets/map.png";
 import GlobalStyle from "@/components/GlobalStyle";
 
+import { useState } from "react";
+import ReportModal from "@/components/modal/ReportModal";
+
 const MapImg = styled.img`
   background-image: url(${map});
   width: 100%;
@@ -23,6 +26,7 @@ const MainBottomContainer = styled.div`
 
 const ListWrap = styled.ul`
   padding: 0 25px 0 25px;
+  margin-bottom: 15rem;
 `;
 
 const MainList = styled.li`
@@ -70,9 +74,15 @@ const ReportButton = styled.button`
   color: white;
   padding: 7px 7px 7px 7px;
   font-size: 1.1rem;
+  cursor: pointer;
 `;
 
 function Main() {
+  const [isModalOpen, setIsModalOpen] = useState(false); // 모달창 상태 관리
+
+  const toggleModal = () => {
+    setIsModalOpen(!isModalOpen);
+  };
   return (
     <>
       <GlobalStyle />
@@ -82,7 +92,8 @@ function Main() {
       </MainTopContainer>
       <MainBottomContainer>
         <AroundArea>내 주변 흡연구역</AroundArea>
-        <ReportButton>+ 흡연구역 제보하기</ReportButton>
+        <ReportButton onClick={toggleModal}>+ 흡연구역 제보하기</ReportButton>
+        {isModalOpen && <ReportModal onClose={toggleModal} />}{" "}
         <ListWrap>
           <MainList>
             <ListSpan>위치</ListSpan>

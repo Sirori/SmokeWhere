@@ -10,6 +10,7 @@ const GlobalStyle = createGlobalStyle`
     line-height: 1.5;
     max-width: 1920px;
     min-width: 1024px;
+    margin: 0;
   }
 `;
 
