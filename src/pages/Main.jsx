@@ -1,27 +1,35 @@
 import Header from "@/components/Header";
 import React from "react";
 import styled from "styled-components";
-import map from "@/assets/map.png";
+import { useEffect, useRef, useState } from "react";
+import {
+	Container as MapDiv,
+	NaverMap,
+	Marker,
+	useNavermaps,
+	InfoWindow,
+} from "react-naver-maps";
 import GlobalStyle from "@/components/GlobalStyle";
-
-import { useState } from "react";
 import ReportModal from "@/components/modal/ReportModal";
-
-const MapImg = styled.img`
-  background-image: url(${map});
-  width: 100%;
-  height: 50rem;
-`;
+import Map from "./../components/Map";
 
 const MainTopContainer = styled.div`
-  margin-top: 15px;
-  padding: 20px;
+  width: 100%;
+  padding: 2% 5%;
+
+  @media(max-width: 480px){
+    padding: 0;
+  }
 `;
 
 const MainBottomContainer = styled.div`
   position: relative;
   margin-left: 1.5rem;
   margin-right: 1.5rem;
+
+  @media(max-width: 480px){
+    display: none;
+  }
 `;
 
 const ListWrap = styled.ul`
@@ -67,7 +75,7 @@ const AroundArea = styled.h2`
 const ReportButton = styled.button`
   position: absolute;
   top: 0;
-  right: 0;
+  right: 1rem;
   background-color: #ff9700;
   border: 0;
   border-radius: 10px;
@@ -78,47 +86,47 @@ const ReportButton = styled.button`
 `;
 
 function Main() {
-  const [isModalOpen, setIsModalOpen] = useState(false); // 모달창 상태 관리
+	const [isModalOpen, setIsModalOpen] = useState(false); // 모달창 상태 관리
 
-  const toggleModal = () => {
-    setIsModalOpen(!isModalOpen);
-  };
-  return (
-    <>
-      <GlobalStyle />
-      <Header />
-      <MainTopContainer>
-        <MapImg></MapImg>
-      </MainTopContainer>
-      <MainBottomContainer>
-        <AroundArea>내 주변 흡연구역</AroundArea>
-        <ReportButton onClick={toggleModal}>+ 흡연구역 제보하기</ReportButton>
-        {isModalOpen && <ReportModal onClose={toggleModal} />}{" "}
-        <ListWrap>
-          <MainList>
-            <ListSpan>위치</ListSpan>
-            <ListSpan>형태</ListSpan>
-            <ListSpan>주소</ListSpan>
-          </MainList>
-          <ItemList>
-            <ListSpan>왕십리광장 (북측)</ListSpan>
-            <ListSpan>개방형</ListSpan>
-            <ListSpan>서울 성동구 행당동 192-3</ListSpan>
-          </ItemList>
-          <ItemList>
-            <ListSpan>왕십리민자역사 후면(6번 출구)</ListSpan>
-            <ListSpan>개방형</ListSpan>
-            <ListSpan>서울 성동구 행당동 1-137</ListSpan>
-          </ItemList>
-          <ItemList>
-            <ListSpan>성수역 2번 출구 후면</ListSpan>
-            <ListSpan>개방형</ListSpan>
-            <ListSpan>서울 성동구 성수동 2가</ListSpan>
-          </ItemList>
-        </ListWrap>
-      </MainBottomContainer>
-    </>
-  );
+	const toggleModal = () => {
+		setIsModalOpen(!isModalOpen);
+	};
+	return (
+		<>
+			<GlobalStyle />
+			<Header />
+			<MainTopContainer>
+				<Map />
+			</MainTopContainer>
+			<MainBottomContainer>
+				<AroundArea>내 주변 흡연구역</AroundArea>
+				<ReportButton onClick={toggleModal}>+ 흡연구역 제보하기</ReportButton>
+				{isModalOpen && <ReportModal onClose={toggleModal} />}{" "}
+				<ListWrap>
+					<MainList>
+						<ListSpan>위치</ListSpan>
+						<ListSpan>형태</ListSpan>
+						<ListSpan>주소</ListSpan>
+					</MainList>
+					<ItemList>
+						<ListSpan>왕십리광장 (북측)</ListSpan>
+						<ListSpan>개방형</ListSpan>
+						<ListSpan>서울 성동구 행당동 192-3</ListSpan>
+					</ItemList>
+					<ItemList>
+						<ListSpan>왕십리민자역사 후면(6번 출구)</ListSpan>
+						<ListSpan>개방형</ListSpan>
+						<ListSpan>서울 성동구 행당동 1-137</ListSpan>
+					</ItemList>
+					<ItemList>
+						<ListSpan>성수역 2번 출구 후면</ListSpan>
+						<ListSpan>개방형</ListSpan>
+						<ListSpan>서울 성동구 성수동 2가</ListSpan>
+					</ItemList>
+				</ListWrap>
+			</MainBottomContainer>
+		</>
+	);
 }
 
 export default Main;
