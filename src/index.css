@@ -67,6 +67,11 @@ button:focus-visible {
   }
 } */
 
+body {
+  margin: 0;
+  padding: 0;
+}
+
 html {
   font-family: "Pretendard Variable", Pretendard, -apple-system,
     BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI",
