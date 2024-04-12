@@ -3,6 +3,9 @@ import SmokeWhere from "@/assets/smokeWhere.svg";
 import info from "@/assets/info_w.svg";
 import cs from "@/assets/cs_w.svg";
 import search from "@/assets/search_w.svg";
+import searchB from "@/assets/search.svg";
+import report from "@/assets/plus.svg";
+import refresh from "@/assets/refresh.svg";
 // import styled from 'styled-components/native';
 
 const HeaderContainer = styled.div`
@@ -12,16 +15,41 @@ const HeaderContainer = styled.div`
   align-items: center;
   padding-left: 2rem;
   padding-right: 2rem;
-  min-width: 1024px;
   justify-content: space-between;
-  /* width: 100%; */
+
+  @media (max-width: 1024px){
+    padding-left: 2%;
+    padding-right: 2%;
+  }
+
+  @media(max-width: 480px){
+    position: absolute;
+    bottom: 0;
+    width: 100vw;
+    height: 10vh;
+    z-index: 5;
+    padding-left: 4%;
+    padding-right: 4%;
+  }
 `;
 
 const HeaderTitle = styled.h1`
-  /* width: 200px; */
-  /* height: 10px; */ /* 이 줄을 주석 처리하거나 삭제 */
+  font-family: "Noto Sans KR";
   color: white;
-  font-size: 24px;
+  font-size: 1.5rem;
+
+  @media (max-width: 1024px) {
+    font-weight: regular;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 1.25rem;
+    font-weight: regular;
+  }
+
+  @media (max-width: 480px) {
+    display: none;
+  }
 `;
 
 const HeaderWrap1 = styled.div`
@@ -29,7 +57,18 @@ const HeaderWrap1 = styled.div`
   flex-direction: row;
   align-items: center;
   gap: 0.8rem;
+
+  @media(max-width: 1024px){
+    gap: 4%;
+  }
+
+  @media(max-width: 480px){
+    width: 30%;
+    gap: 0;
+    justify-content: space-between;
+  }
 `;
+
 const HeaderWrap2 = styled.div`
   display: flex;
   flex-direction: row;
@@ -44,21 +83,59 @@ const HeaderWrap3 = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+
+  @media(max-width: 768px){
+    width: 10rem;
+  }
+
+  @media(max-width: 480px){
+    position: fixed;
+    top: 2%;
+    left: 5%;
+    width: 90vw;
+    height: 7vh;
+    background: white;
+    justify-content: flex-end;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+  }
 `;
 
 const SmokeImg = styled.img`
-  background-image: url(${SmokeWhere});
-  width: 2rem;
-  height: 2rem;
+  width: 2.5rem;
+  height: 2.5rem;
+
+  @media(max-width: 768px){
+    width: 2rem;
+    height: 2rem;
+  }
+
+  @media(max-width: 480px){
+    display: none;
+  }
 `;
 
 const InfoButton = styled.button`
-  background-image: url(${info});
+  background: url(${info}) center no-repeat;
   background-color: #ff9700;
   width: 2rem;
   height: 2rem;
   border: 0px;
   cursor: pointer;
+`;
+
+const ReportButton = styled.button`
+  display: none;
+  @media(max-width: 480px){
+    display: block;
+    background: url(${report}) center no-repeat;
+    width: 2rem;
+    height: 2rem;
+    border: 0;
+    padding: 7px 7px 7px 7px;
+    font-size: 1.1rem;
+    cursor: pointer;
+  }
 `;
 
 const CsButton = styled.button`
@@ -75,7 +152,6 @@ const CsButton = styled.button`
 
 const SearchInput = styled.input`
   background-color: #ff9700;
-
   width: 15rem;
   height: 2rem;
   color: white;
@@ -90,11 +166,38 @@ const SearchInput = styled.input`
   &::placeholder {
     border: 0px;
     color: white;
-
     padding-left: 4.5rem;
   }
-  :focus {
-    border: 2px solid white;
+  &:focus {
+    outline: 1px solid white;
+  }
+
+  @media(max-width: 1024px){
+    font-size: 1.25rem;
+    border-bottom: 1.5px solid white;
+  }
+
+  @media(max-width: 768px){
+    width: 10rem;
+    font-size: 1rem;
+    color: black;
+    padding-left: 5%;
+    &::placeholder {
+      padding-left: 0;
+    }
+    &:focus{
+      outline: none;
+    }
+  }
+
+  @media(max-width: 480px){
+    width: 100%;
+    background: white;
+    font-size: 1.3rem;
+    &::placeholder {
+      color: #aaa;
+      padding-left: 3%;
+    }
   }
 `;
 
@@ -107,34 +210,58 @@ const SearchButton = styled.button`
   width: 1.6rem;
   height: 1.6rem;
   top: 50%; /* 부모 컨테이너의 상단으로부터 50% 위치 */
-  right: 0.5rem; /* 오른쪽 가장자리로부터 1rem 떨어진 위치 */
+  right: 0%; /* 오른쪽 가장자리로부터 1rem 떨어진 위치 */
   transform: translateY(
     -50%
   ); /* Y축 기준으로 자신의 크기의 -50% 만큼 이동하여 세로 중앙 정렬 */
-
   cursor: pointer;
+
+  @media(max-width: 768px){
+    width: 1.4rem;
+    height: 1.4rem;
+  }
+
+  @media(max-width: 480px){
+    background-color: transparent;
+    background-image: url(${searchB});
+    right: 3%;
+  }
+`;
+
+const RefreshButton = styled.button`
+  display: none;
+  @media(max-width: 480px){
+    display: block;
+    background: url(${refresh}) center no-repeat;
+    width: 2rem;
+    height: 2rem;
+    border: none;
+    cursor: pointer;
+  }
 `;
 
 function Header() {
-  return (
-    <HeaderContainer>
-      {/* <img src={SmokeWhere} alt="" /> */}
-      <HeaderWrap1>
-        <SmokeImg></SmokeImg>
-        <HeaderTitle>SmokeWhere</HeaderTitle> {/* 텍스트 추가 */}
-        <InfoButton></InfoButton>
-      </HeaderWrap1>
+	return (
+		<HeaderContainer>
+			{/* <img src={SmokeWhere} alt="" /> */}
+			<HeaderWrap1>
+				<SmokeImg src={SmokeWhere}></SmokeImg>
+				<HeaderTitle>SmokeWhere</HeaderTitle> {/* 텍스트 추가 */}
+				<InfoButton></InfoButton>
+				<RefreshButton />
+			</HeaderWrap1>
 
-      <HeaderWrap2>
-        <HeaderWrap3>
-          <SearchInput placeholder="장소 검색하기" />
-          <SearchButton></SearchButton>
-        </HeaderWrap3>
-        <CsButton></CsButton>
-      </HeaderWrap2>
-      {/* <input type="text" /> */}
-    </HeaderContainer>
-  );
+			<HeaderWrap2>
+				<HeaderWrap3>
+					<SearchInput placeholder="장소 검색하기" />
+					<SearchButton></SearchButton>
+				</HeaderWrap3>
+				<ReportButton />
+				<CsButton></CsButton>
+			</HeaderWrap2>
+			{/* <input type="text" /> */}
+		</HeaderContainer>
+	);
 }
 
 export default Header;
