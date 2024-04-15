@@ -21,6 +21,11 @@ const ModalContainer = styled(motion.div)`
   width: 50%;
   height: 90%;
   /* overflow: auto; */
+
+  @media(max-width: 480px){
+    width: 85%;
+    height: 90%;
+  }
 `;
 
 const ModalHeader = styled.div`
@@ -30,6 +35,18 @@ const ModalHeader = styled.div`
   color: white;
   font-size: larger;
   font-weight: bold;
+  &::after {
+    content: "흡연구역을 제보해주세요:D";
+  }
+
+  @media(max-width: 480px){
+    font-size: 1.25rem;
+    padding: 3% 4%;
+    &::after {
+      font-weight: medium;
+      content: "흡연구역 제보";
+    }
+  }
 `;
 
 const CloseButton = styled.button`
@@ -46,6 +63,10 @@ const CloseButton = styled.button`
   background-color: #ff9700;
   border: 0;
   cursor: pointer;
+
+  @media(max-width: 480px){
+    margin-right: 3%;
+  }
 `;
 
 const Form = styled.form`
@@ -53,6 +74,10 @@ const Form = styled.form`
   flex-direction: column;
   align-items: center;
   padding: 20px;
+
+  @media(max-width: 480px){
+    padding: 4%;
+  }
 `;
 
 const Input = styled.input`
@@ -61,6 +86,11 @@ const Input = styled.input`
   width: 100%;
   border: 0;
   border-bottom: 2px solid black;
+
+  @media(max-width: 480px){
+    padding: 3%;
+    margin: 2% 0 3% 0;
+  }
 `;
 
 const SubmitButton = styled.button`
@@ -90,6 +120,11 @@ const InputLabel = styled.label`
   font-size: large;
   font-weight: bold;
   margin-top: 1.5rem;
+
+  @media(max-width: 480px){
+    margin-top: 4%;
+    font-size: 1.1rem;
+  }
 `;
 
 // 라디오 버튼을 위한 스타일 컴포넌트 추가
@@ -102,6 +137,13 @@ const RadioWrap = styled.div`
   justify-content: space-around;
   /* gap: 5rem; */
   /* margin: 20px 0; */
+
+  @media(max-width: 480px){
+    margin-top: 3%;
+    margin-bottom: 10%;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
 `;
 
 // 라디오 버튼 라벨을 위한 스타일 컴포넌트 추가
@@ -110,103 +152,114 @@ const RadioLabel = styled.label`
   font-size: 1.1rem;
   font-weight: 600;
   /* width: 2rem; */
+
+  @media(max-width: 480px){
+    width: 50%;
+    margin-top: 1%;
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
 `;
 
 const RadioInput = styled.input`
   /* width: 2rem; */
+
+  @media(max-width: 480px){
+    margin: 0;
+    margin-right: 4%;
+  }
 `;
 
 const ReportModal = ({ onClose }) => {
-  useEffect(() => {
-    // 모달창이 열릴 때 body의 overflow를 hidden으로 설정
-    document.body.style.overflow = "hidden";
+	useEffect(() => {
+		// 모달창이 열릴 때 body의 overflow를 hidden으로 설정
+		document.body.style.overflow = "hidden";
 
-    // 컴포넌트가 언마운트될 때 실행될 클린업 함수
-    return () => {
-      // 모달창이 닫힐 때 body의 overflow를 원래대로 복원
-      document.body.style.overflow = "";
-    };
-  }, []);
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // 여기에서 입력 데이터 처리
-    console.log("제출됨");
-    onClose(); // 제출 후 모달 닫기
-  };
+		// 컴포넌트가 언마운트될 때 실행될 클린업 함수
+		return () => {
+			// 모달창이 닫힐 때 body의 overflow를 원래대로 복원
+			document.body.style.overflow = "";
+		};
+	}, []);
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		// 여기에서 입력 데이터 처리
+		console.log("제출됨");
+		onClose(); // 제출 후 모달 닫기
+	};
 
-  return (
-    <ModalOverlay onClick={onClose}>
-      <ModalContainer
-        onClick={(e) => e.stopPropagation()}
-        initial={{ y: 100, opacity: 0 }} // 초기 위치와 투명도 설정
-        animate={{ y: 0, opacity: 1 }} // 최종 위치와 투명도 설정
-        transition={{ duration: 0.3 }}
-      >
-        <ModalHeader>
-          <span>흡연구역을 제보해주세요 :D</span>
-          <CloseButton onClick={onClose}>X</CloseButton>
-        </ModalHeader>
-        <Form onSubmit={handleSubmit}>
-          <InputWrap>
-            <InputLabel htmlFor="location">위치</InputLabel>
-            <Input
-              type="text"
-              id="location"
-              placeholder="위치를 알려주세요"
-              required
-            />
-          </InputWrap>
+	return (
+		<ModalOverlay onClick={onClose}>
+			<ModalContainer
+				onClick={(e) => e.stopPropagation()}
+				initial={{ y: 100, opacity: 0 }} // 초기 위치와 투명도 설정
+				animate={{ y: 0, opacity: 1 }} // 최종 위치와 투명도 설정
+				transition={{ duration: 0.3 }}
+			>
+				<ModalHeader>
+					<CloseButton onClick={onClose}>X</CloseButton>
+				</ModalHeader>
+				<Form onSubmit={handleSubmit}>
+					<InputWrap>
+						<InputLabel htmlFor="location">위치</InputLabel>
+						<Input
+							type="text"
+							id="location"
+							placeholder="위치를 알려주세요"
+							required
+						/>
+					</InputWrap>
 
-          <InputWrap>
-            <InputLabel htmlFor="address">주소</InputLabel>
-            <Input
-              type="text"
-              id="address"
-              placeholder="주소를 입력하세요"
-              required
-            />
-          </InputWrap>
+					<InputWrap>
+						<InputLabel htmlFor="address">주소</InputLabel>
+						<Input
+							type="text"
+							id="address"
+							placeholder="주소를 입력하세요"
+							required
+						/>
+					</InputWrap>
 
-          <InputWrap>
-            <InputLabel htmlFor="option1">형태</InputLabel>
+					<InputWrap>
+						<InputLabel htmlFor="option1">형태</InputLabel>
 
-            <RadioWrap>
-              <RadioLabel>
-                <RadioInput
-                  type="radio"
-                  id="option1"
-                  name="reportOption"
-                  value="option1"
-                  required
-                />
-                개방형
-              </RadioLabel>
-              <RadioLabel>
-                <RadioInput
-                  type="radio"
-                  id="option2"
-                  name="reportOption"
-                  value="option2"
-                />
-                폐쇄(밀폐)형
-              </RadioLabel>
-              <RadioLabel>
-                <RadioInput
-                  type="radio"
-                  id="option3"
-                  name="reportOption"
-                  value="option3"
-                />
-                부분개방형
-              </RadioLabel>
-            </RadioWrap>
-          </InputWrap>
+						<RadioWrap>
+							<RadioLabel>
+								<RadioInput
+									type="radio"
+									id="option1"
+									name="reportOption"
+									value="option1"
+									required
+								/>
+								개방형
+							</RadioLabel>
+							<RadioLabel>
+								<RadioInput
+									type="radio"
+									id="option2"
+									name="reportOption"
+									value="option2"
+								/>
+								폐쇄(밀폐)형
+							</RadioLabel>
+							<RadioLabel>
+								<RadioInput
+									type="radio"
+									id="option3"
+									name="reportOption"
+									value="option3"
+								/>
+								부분개방형
+							</RadioLabel>
+						</RadioWrap>
+					</InputWrap>
 
-          <SubmitButton type="submit">제출하기</SubmitButton>
-        </Form>
-      </ModalContainer>
-    </ModalOverlay>
-  );
+					<SubmitButton type="submit">제출하기</SubmitButton>
+				</Form>
+			</ModalContainer>
+		</ModalOverlay>
+	);
 };
 
 export default ReportModal;

@@ -6,6 +6,7 @@ import search from "@/assets/search_w.svg";
 
 import React, { useState } from "react";
 import InquireModal from "./modal/InquireModal";
+import ReportModal from "./modal/ReportModal";
 import searchB from "@/assets/search.svg";
 import report from "@/assets/plus.svg";
 import refresh from "@/assets/refresh.svg";
@@ -244,15 +245,28 @@ const RefreshButton = styled.button`
 `;
 
 function Header() {
-	const [isModalOpen, setIsModalOpen] = useState(false); // 모달창 상태 관리
+	const [isReportModalOpen, setIsReportModalOpen] = useState(false);
+	const [isInquireModalOpen, setIsInquireModalOpen] = useState(false);
 
-	const toggleModal = () => {
-		setIsModalOpen(!isModalOpen);
+	const openReportModal = () => {
+		setIsReportModalOpen(true);
+	};
+
+	const closeReportModal = () => {
+		setIsReportModalOpen(false);
+	};
+
+	const openInquireModal = () => {
+		setIsInquireModalOpen(true);
+	};
+
+	const closeInquireModal = () => {
+		setIsInquireModalOpen(false);
 	};
 	return (
 		<HeaderContainer>
 			<HeaderWrap1>
-				<SmokeImg></SmokeImg>
+				<SmokeImg src={SmokeWhere}></SmokeImg>
 				<HeaderTitle>SmokeWhere</HeaderTitle> {/* 텍스트 추가 */}
 				<InfoButton></InfoButton>
 				<RefreshButton />
@@ -262,12 +276,11 @@ function Header() {
 					<SearchInput placeholder="장소 검색하기" />
 					<SearchButton></SearchButton>
 				</HeaderWrap3>
-				<ReportButton />
-				<CsButton onClick={toggleModal}></CsButton>
+				<ReportButton onClick={openReportModal} />
+				<CsButton onClick={openInquireModal}></CsButton>
 			</HeaderWrap2>
-			{isModalOpen && <InquireModal onClose={toggleModal} />}{" "}
-			{/* 조건부 렌더링으로 모달창 표시 */}
-			{/* <input type="text" /> */}
+			{isReportModalOpen && <ReportModal onClose={closeReportModal} />}
+			{isInquireModalOpen && <InquireModal onClose={closeInquireModal} />}
 		</HeaderContainer>
 	);
 }
