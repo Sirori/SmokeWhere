@@ -19,13 +19,14 @@ const HeaderContainer = styled.div`
   padding-left: 2rem;
   padding-right: 2rem;
   justify-content: space-between;
+  z-index: 10;
 
-  @media (max-width: 1024px){
+  @media (max-width: 1024px) {
     padding-left: 2%;
     padding-right: 2%;
   }
 
-  @media(max-width: 480px){
+  @media (max-width: 480px) {
     position: absolute;
     bottom: 0;
     width: 100vw;
@@ -61,11 +62,11 @@ const HeaderWrap1 = styled.div`
   align-items: center;
   gap: 0.8rem;
 
-  @media(max-width: 1024px){
+  @media (max-width: 1024px) {
     gap: 4%;
   }
 
-  @media(max-width: 480px){
+  @media (max-width: 480px) {
     width: 30%;
     gap: 0;
     justify-content: space-between;
@@ -87,11 +88,11 @@ const HeaderWrap3 = styled.div`
   flex-direction: row;
   align-items: center;
 
-  @media(max-width: 768px){
+  @media (max-width: 768px) {
     width: 10rem;
   }
 
-  @media(max-width: 480px){
+  @media (max-width: 480px) {
     position: fixed;
     top: 2%;
     left: 5%;
@@ -105,15 +106,18 @@ const HeaderWrap3 = styled.div`
 `;
 
 const SmokeImg = styled.img`
-  width: 2.5rem;
-  height: 2.5rem;
+  background: #fff;
+  @media (max-width: 1920px) {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
 
-  @media(max-width: 768px){
+  @media (max-width: 768px) {
     width: 2rem;
     height: 2rem;
   }
 
-  @media(max-width: 480px){
+  @media (max-width: 480px) {
     display: none;
   }
 `;
@@ -129,7 +133,7 @@ const InfoButton = styled.button`
 
 const ReportButton = styled.button`
   display: none;
-  @media(max-width: 480px){
+  @media (max-width: 480px) {
     display: block;
     background: url(${report}) center no-repeat;
     width: 2rem;
@@ -175,12 +179,12 @@ const SearchInput = styled.input`
     outline: 1px solid white;
   }
 
-  @media(max-width: 1024px){
+  @media (max-width: 1024px) {
     font-size: 1.25rem;
     border-bottom: 1.5px solid white;
   }
 
-  @media(max-width: 768px){
+  @media (max-width: 768px) {
     width: 10rem;
     font-size: 1rem;
     color: black;
@@ -188,12 +192,12 @@ const SearchInput = styled.input`
     &::placeholder {
       padding-left: 0;
     }
-    &:focus{
+    &:focus {
       outline: none;
     }
   }
 
-  @media(max-width: 480px){
+  @media (max-width: 480px) {
     width: 100%;
     background: white;
     font-size: 1.3rem;
@@ -219,12 +223,12 @@ const SearchButton = styled.button`
   ); /* Y축 기준으로 자신의 크기의 -50% 만큼 이동하여 세로 중앙 정렬 */
   cursor: pointer;
 
-  @media(max-width: 768px){
+  @media (max-width: 768px) {
     width: 1.4rem;
     height: 1.4rem;
   }
 
-  @media(max-width: 480px){
+  @media (max-width: 480px) {
     background-color: transparent;
     background-image: url(${searchB});
     right: 3%;
@@ -233,7 +237,7 @@ const SearchButton = styled.button`
 
 const RefreshButton = styled.button`
   display: none;
-  @media(max-width: 480px){
+  @media (max-width: 480px) {
     display: block;
     background: url(${refresh}) center no-repeat;
     width: 2rem;
@@ -244,32 +248,32 @@ const RefreshButton = styled.button`
 `;
 
 function Header() {
-	const [isModalOpen, setIsModalOpen] = useState(false); // 모달창 상태 관리
+  const [isModalOpen, setIsModalOpen] = useState(false); // 모달창 상태 관리
 
-	const toggleModal = () => {
-		setIsModalOpen(!isModalOpen);
-	};
-	return (
-		<HeaderContainer>
-			<HeaderWrap1>
-				<SmokeImg></SmokeImg>
-				<HeaderTitle>SmokeWhere</HeaderTitle> {/* 텍스트 추가 */}
-				<InfoButton></InfoButton>
-				<RefreshButton />
-			</HeaderWrap1>
-			<HeaderWrap2>
-				<HeaderWrap3>
-					<SearchInput placeholder="장소 검색하기" />
-					<SearchButton></SearchButton>
-				</HeaderWrap3>
-				<ReportButton />
-				<CsButton onClick={toggleModal}></CsButton>
-			</HeaderWrap2>
-			{isModalOpen && <InquireModal onClose={toggleModal} />}{" "}
-			{/* 조건부 렌더링으로 모달창 표시 */}
-			{/* <input type="text" /> */}
-		</HeaderContainer>
-	);
+  const toggleModal = () => {
+    setIsModalOpen(!isModalOpen);
+  };
+  return (
+    <HeaderContainer>
+      <HeaderWrap1>
+        <SmokeImg src={SmokeWhere}></SmokeImg>
+        <HeaderTitle>SmokeWhere</HeaderTitle> {/* 텍스트 추가 */}
+        <InfoButton></InfoButton>
+        <RefreshButton />
+      </HeaderWrap1>
+      <HeaderWrap2>
+        <HeaderWrap3>
+          <SearchInput placeholder="장소 검색하기" />
+          <SearchButton></SearchButton>
+        </HeaderWrap3>
+        <ReportButton />
+        <CsButton onClick={toggleModal}></CsButton>
+      </HeaderWrap2>
+      {isModalOpen && <InquireModal onClose={toggleModal} />}{" "}
+      {/* 조건부 렌더링으로 모달창 표시 */}
+      {/* <input type="text" /> */}
+    </HeaderContainer>
+  );
 }
 
 export default Header;
