@@ -13,7 +13,16 @@ import GlobalStyle from "@/components/GlobalStyle";
 import ReportModal from "@/components/modal/ReportModal";
 import Map from "./../components/Map";
 
-import { collection, getDocs, addDoc } from "firebase/firestore";
+import {
+  getDatabase,
+  ref,
+  query,
+  orderByChild,
+  equalTo,
+  limitToFirst,
+  get,
+} from "firebase/database";
+
 import db from "@/firebase.js";
 
 const MainTopContainer = styled.div`
@@ -95,29 +104,57 @@ function Main() {
     setIsModalOpen(!isModalOpen);
   };
 
-  //----------------
-  // const [test, setTest] = useState();
+  // async function getDocuments() {
+  //   const db = getDatabase(); // Realtime Database 인스턴스를 가져옵니다.
+  //   const dbRef = ref(db, "aroundArea"); // 'AroundArea' 경로에 대한 참조를 생성합니다.
 
-  async function getDocuments() {
-    const querySnapshot = await getDocs(collection(db, "AroundArea"));
-    // console.log(querySnapshot.docs);
-    // querySnapshot.forEach((doc) => {
-    //   console.log(`${doc.id} => `, doc.data()); // doc.data()를 별도의 인자로 전달
-    // });
-    const allData = querySnapshot.docs.map((doc) => doc.data()); // 각 문서의 데이터를 allData 배열에 모음
-    console.log(allData); // 모든 문서의 데이터를 담은 배열을 출력
-  }
-
-  // async function addDocument() {
   //   try {
-  //     const docRef = await addDoc(collection(db, "your_collection_name"), {
-  //       your_field: "your_value",
-  //     });
-  //     console.log("Document written with ID: ", docRef.id);
-  //   } catch (e) {
-  //     console.error("Error adding document: ", e);
+  //     const snapshot = await get(dbRef); // 해당 경로의 데이터 스냅샷을 가져옵니다.
+  //     if (snapshot.exists()) {
+  //       const allData = []; // 모든 문서의 데이터를 담을 배열을 초기화합니다.
+  //       snapshot.forEach((childSnapshot) => {
+  //         // 각 자식 노드에 대해 반복
+  //         const data = childSnapshot.val(); // 자식 노드의 데이터를 가져옵니다.
+  //         allData.push(data); // 가져온 데이터를 allData 배열에 추가합니다.
+  //       });
+  //       console.log(allData); // 모든 문서의 데이터를 담은 배열을 출력합니다.
+  //     } else {
+  //       console.log("No data available");
+  //     }
+  //   } catch (error) {
+  //     console.error(error);
   //   }
   // }
+
+  async function getDocuments() {
+    const db = getDatabase(); // Realtime Database 인스턴스를 가져옵니다.
+    const dbRef = ref(db, "aroundArea"); // 'aroundArea' 경로에 대한 참조를 생성합니다.
+
+    try {
+      // 'gu' 필드가 '중원구'이고, 처음 10개의 데이터만 가져오는 쿼리를 생성합니다.
+      const filteredQuery = query(
+        dbRef,
+        orderByChild("gu"),
+        equalTo("서초구"),
+        limitToFirst(10)
+      );
+      const snapshot = await get(filteredQuery); // 쿼리 결과의 데이터 스냅샷을 가져옵니다.
+
+      if (snapshot.exists()) {
+        const allData = []; // 조건에 맞는 문서의 데이터를 담을 배열을 초기화합니다.
+        snapshot.forEach((childSnapshot) => {
+          // 각 자식 노드에 대해 반복
+          const data = childSnapshot.val(); // 자식 노드의 데이터를 가져옵니다.
+          allData.push(data); // 가져온 데이터를 allData 배열에 추가합니다.
+        });
+        console.log(allData); // 조건에 맞는 모든 문서의 데이터를 담은 배열을 출력합니다.
+      } else {
+        console.log("No data available");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   // 최초 마운트 시에 getTest import
   useEffect(() => {

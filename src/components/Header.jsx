@@ -249,34 +249,6 @@ const RefreshButton = styled.button`
 `;
 
 function Header() {
-<<<<<<< HEAD
-  const [isModalOpen, setIsModalOpen] = useState(false); // 모달창 상태 관리
-
-  const toggleModal = () => {
-    setIsModalOpen(!isModalOpen);
-  };
-  return (
-    <HeaderContainer>
-      <HeaderWrap1>
-        <SmokeImg src={SmokeWhere}></SmokeImg>
-        <HeaderTitle>SmokeWhere</HeaderTitle> {/* 텍스트 추가 */}
-        <InfoButton></InfoButton>
-        <RefreshButton />
-      </HeaderWrap1>
-      <HeaderWrap2>
-        <HeaderWrap3>
-          <SearchInput placeholder="장소 검색하기" />
-          <SearchButton></SearchButton>
-        </HeaderWrap3>
-        <ReportButton />
-        <CsButton onClick={toggleModal}></CsButton>
-      </HeaderWrap2>
-      {isModalOpen && <InquireModal onClose={toggleModal} />}{" "}
-      {/* 조건부 렌더링으로 모달창 표시 */}
-      {/* <input type="text" /> */}
-    </HeaderContainer>
-  );
-=======
 	const [isReportModalOpen, setIsReportModalOpen] = useState(false);
 	const [isInquireModalOpen, setIsInquireModalOpen] = useState(false);
 
@@ -315,7 +287,6 @@ function Header() {
 			{isInquireModalOpen && <InquireModal onClose={closeInquireModal} />}
 		</HeaderContainer>
 	);
->>>>>>> frontend
 }
 
 export default Header;
