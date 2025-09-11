@@ -7,7 +7,6 @@ import styles from "./Main.module.scss";
 
 function Main() {
   const [isModalOpen, setIsModalOpen] = useState(false); // 모달창 상태 관리
-  const [isModalOpen, setIsModalOpen] = useState(false); // 모달창 상태 관리
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
