@@ -1,14 +1,7 @@
-import { createGlobalStyle } from "styled-components";
+import "./GlobalStyle.scss";
 
-const GlobalStyle = createGlobalStyle`
-  *, *::before, *::after {
-    box-sizing: border-box;
-  }
-
-  body {
-    font-family: "Noto Sans KR", sans-serif;
-    line-height: 1.5;
-  }
-`;
+const GlobalStyle = () => {
+  return null; // CSS는 import로만 적용됨
+};
 
 export default GlobalStyle;
