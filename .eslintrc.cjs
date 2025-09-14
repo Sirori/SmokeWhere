@@ -8,9 +8,11 @@ module.exports = {
   extends: [
     "eslint:recommended",
     "plugin:react/recommended",
-    "plugin:react/jsx-runtime",
     "plugin:react-hooks/recommended",
+    "airbnb",
+    "prettier",
   ],
+
   ignorePatterns: ["dist", ".eslintrc.cjs", "node_modules"],
   parserOptions: {
     ecmaVersion: "latest",
@@ -26,14 +28,10 @@ module.exports = {
   },
   plugins: ["react-refresh"],
   rules: {
-    "react/jsx-no-target-blank": "off",
-    "react/prop-types": "warn",
-    "react-refresh/only-export-components": [
-      "warn",
-      { allowConstantExport: true },
-    ],
-    "no-unused-vars": "warn",
+    "react/jsx-filename-extension": ["warn", { extensions: [".js", ".jsx"] }],
+    "import/no-extraneous-dependencies": "off",
+    "react/prop-types": "off",
     "no-console": "warn",
-    "prefer-const": "warn",
+    "no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
   },
 };
