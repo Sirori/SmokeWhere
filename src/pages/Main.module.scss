@@ -1,0 +1,73 @@
+// 변수 정의
+$primary-color: #ff9700;
+$mobile-breakpoint: 480px;
+$border-color-black: black;
+$border-color-gray: gray;
+
+.mainTopContainer {
+  width: 100%;
+  padding: 2% 5%;
+
+  @media (max-width: $mobile-breakpoint) {
+    padding: 0;
+  }
+}
+
+.mainBottomContainer {
+  position: relative;
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+
+  @media (max-width: $mobile-breakpoint) {
+    display: none;
+  }
+}
+
+.listWrap {
+  padding: 0 25px;
+  margin-bottom: 15rem;
+}
+
+.mainList {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  border-bottom: 3px $border-color-black solid;
+  padding-bottom: 3px;
+  font-weight: 900;
+  font-size: 1.2rem;
+}
+
+.itemList {
+  display: flex;
+  flex-direction: row;
+  border-bottom: 2px $border-color-gray solid;
+  padding: 1rem 0;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.listSpan {
+  flex: 1;
+  text-align: center;
+}
+
+.aroundArea {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 900;
+  padding: 1rem;
+}
+
+.reportButton {
+  position: absolute;
+  top: 0;
+  right: 1rem;
+  background-color: $primary-color;
+  border: 0;
+  border-radius: 10px;
+  color: white;
+  padding: 7px;
+  font-size: 1.1rem;
+  cursor: pointer;
+}

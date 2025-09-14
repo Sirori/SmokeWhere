@@ -1,120 +1,7 @@
-import React, { useEffect } from "react";
-import styled from "styled-components";
+import { useEffect } from "react";
+import PropTypes from "prop-types";
 import { motion } from "framer-motion";
-
-const ModalOverlay = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.8);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const ModalContainer = styled(motion.div)`
-  display: flex;
-  flex-direction: column;
-  background-color: white;
-  width: 50%;
-  height: 90%;
-  /* overflow: auto; */
-`;
-
-const ModalHeader = styled.div`
-  position: relative;
-  background-color: #ff9700;
-  padding: 15px 15px 15px 15px;
-  color: white;
-  font-size: larger;
-  font-weight: bold;
-`;
-
-const CloseButton = styled.button`
-  position: absolute;
-  /* top: 1; */
-  right: 0;
-
-  /* transform: translateY(1%); */
-  /* width: 2rem;
-  height: 2rem; */
-  margin-right: 15px;
-  font-size: x-large;
-  color: white;
-  background-color: #ff9700;
-  border: 0;
-  cursor: pointer;
-`;
-
-const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px;
-`;
-
-const Input = styled.input`
-  margin: 10px 0;
-  padding: 10px;
-  width: 100%;
-  border: 0;
-  border-bottom: 2px solid black;
-`;
-
-const SubmitButton = styled.button`
-  /* margin-top: 20px; */
-  /* margin-bottom: 50px; */
-  margin-bottom: 100px;
-  padding: 7px 25px;
-  cursor: pointer;
-
-  background-color: #ff9700;
-  /* font-weight: bolder; */
-  border: 0;
-  color: white;
-  border-radius: 5px;
-`;
-
-const InputWrap = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 90%;
-`;
-
-const InputLabel = styled.label`
-  width: 100%;
-  text-align: left;
-  /* margin-left: 4.5rem; */
-  font-size: large;
-  font-weight: bold;
-  margin-top: 1.5rem;
-`;
-
-// 라디오 버튼을 위한 스타일 컴포넌트 추가
-const RadioWrap = styled.div`
-
-  display: flex;
-  margin-top: 2rem;
-  margin-bottom: 8rem;
-  flex-direction: row;
-  justify-content: space-around;
-  /* gap: 5rem; */
-  /* margin: 20px 0; */
-`;
-
-// 라디오 버튼 라벨을 위한 스타일 컴포넌트 추가
-const RadioLabel = styled.label`
-  /* margin-right: 20px; */
-  font-size: 1.1rem;
-  font-weight: 600;
-  /* width: 2rem; */
-`;
-
-const RadioInput = styled.input`
-  /* width: 2rem; */
-`;
+import styles from "./ReportModal.module.scss";
 
 const ReportModal = ({ onClose }) => {
   useEffect(() => {
@@ -135,44 +22,56 @@ const ReportModal = ({ onClose }) => {
   };
 
   return (
-    <ModalOverlay onClick={onClose}>
-      <ModalContainer
+    <div className={styles.modalOverlay} onClick={onClose}>
+      <motion.div
+        className={styles.modalContainer}
         onClick={(e) => e.stopPropagation()}
-        initial={{ y: 100, opacity: 0 }} // 초기 위치와 투명도 설정
-        animate={{ y: 0, opacity: 1 }} // 최종 위치와 투명도 설정
+        initial={{ y: 100, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.3 }}
       >
-        <ModalHeader>
+        <div className={styles.modalHeader}>
           <span>흡연구역을 제보해주세요 :D</span>
-          <CloseButton onClick={onClose}>X</CloseButton>
-        </ModalHeader>
-        <Form onSubmit={handleSubmit}>
-          <InputWrap>
-            <InputLabel htmlFor="location">위치</InputLabel>
-            <Input
+          <button className={styles.closeButton} onClick={onClose}>
+            X
+          </button>
+        </div>
+        <form className={styles.form} onSubmit={handleSubmit}>
+          <div className={styles.inputWrap}>
+            <label className={styles.inputLabel} htmlFor="location">
+              위치
+            </label>
+            <input
+              className={styles.input}
               type="text"
               id="location"
-              placeholder="위치를 알려주세요"
+              placeholder="알기 쉽게 위치를 설명해주세요. (ex. 건물 뒤 편 주차장)"
               required
             />
-          </InputWrap>
+          </div>
 
-          <InputWrap>
-            <InputLabel htmlFor="address">주소</InputLabel>
-            <Input
+          <div className={styles.inputWrap}>
+            <label className={styles.inputLabel} htmlFor="address">
+              주소
+            </label>
+            <input
+              className={styles.input}
               type="text"
               id="address"
               placeholder="주소를 입력하세요"
               required
             />
-          </InputWrap>
+          </div>
 
-          <InputWrap>
-            <InputLabel htmlFor="option1">형태</InputLabel>
+          <div className={styles.inputWrap}>
+            <label className={styles.inputLabel} htmlFor="option1">
+              형태
+            </label>
 
-            <RadioWrap>
-              <RadioLabel>
-                <RadioInput
+            <div className={styles.radioWrap}>
+              <label className={styles.radioLabel}>
+                <input
+                  className={styles.radioInput}
                   type="radio"
                   id="option1"
                   name="reportOption"
@@ -180,33 +79,41 @@ const ReportModal = ({ onClose }) => {
                   required
                 />
                 개방형
-              </RadioLabel>
-              <RadioLabel>
-                <RadioInput
+              </label>
+              <label className={styles.radioLabel}>
+                <input
+                  className={styles.radioInput}
                   type="radio"
                   id="option2"
                   name="reportOption"
                   value="option2"
                 />
                 폐쇄(밀폐)형
-              </RadioLabel>
-              <RadioLabel>
-                <RadioInput
+              </label>
+              <label className={styles.radioLabel}>
+                <input
+                  className={styles.radioInput}
                   type="radio"
                   id="option3"
                   name="reportOption"
                   value="option3"
                 />
                 부분개방형
-              </RadioLabel>
-            </RadioWrap>
-          </InputWrap>
+              </label>
+            </div>
+          </div>
 
-          <SubmitButton type="submit">제출하기</SubmitButton>
-        </Form>
-      </ModalContainer>
-    </ModalOverlay>
+          <button className={styles.submitButton} type="submit">
+            제출하기
+          </button>
+        </form>
+      </motion.div>
+    </div>
   );
+};
+
+ReportModal.propTypes = {
+  onClose: PropTypes.func.isRequired,
 };
 
 export default ReportModal;

@@ -1,275 +1,50 @@
-import styled from "styled-components";
-import SmokeWhere from "@/assets/smokeWhere.svg";
-import info from "@/assets/info_w.svg";
-import cs from "@/assets/cs_w.svg";
-import search from "@/assets/search_w.svg";
-
-import React, { useState } from "react";
+import { useState } from "react";
 import InquireModal from "./modal/InquireModal";
-import searchB from "@/assets/search.svg";
-import report from "@/assets/plus.svg";
-import refresh from "@/assets/refresh.svg";
-// import styled from 'styled-components/native';
-
-const HeaderContainer = styled.div`
-  background-color: #ff9700;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  padding-left: 2rem;
-  padding-right: 2rem;
-  justify-content: space-between;
-
-  @media (max-width: 1024px){
-    padding-left: 2%;
-    padding-right: 2%;
-  }
-
-  @media(max-width: 480px){
-    position: absolute;
-    bottom: 0;
-    width: 100vw;
-    height: 10vh;
-    z-index: 5;
-    padding-left: 4%;
-    padding-right: 4%;
-  }
-`;
-
-const HeaderTitle = styled.h1`
-  font-family: "Noto Sans KR";
-  color: white;
-  font-size: 1.5rem;
-
-  @media (max-width: 1024px) {
-    font-weight: regular;
-  }
-
-  @media (max-width: 768px) {
-    font-size: 1.25rem;
-    font-weight: regular;
-  }
-
-  @media (max-width: 480px) {
-    display: none;
-  }
-`;
-
-const HeaderWrap1 = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 0.8rem;
-
-  @media(max-width: 1024px){
-    gap: 4%;
-  }
-
-  @media(max-width: 480px){
-    width: 30%;
-    gap: 0;
-    justify-content: space-between;
-  }
-`;
-
-const HeaderWrap2 = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: end;
-  gap: 2rem;
-`;
-
-const HeaderWrap3 = styled.div`
-  width: 15rem;
-  position: relative;
-  /* height: 2.1rem; */
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-
-  @media(max-width: 768px){
-    width: 10rem;
-  }
-
-  @media(max-width: 480px){
-    position: fixed;
-    top: 2%;
-    left: 5%;
-    width: 90vw;
-    height: 7vh;
-    background: white;
-    justify-content: flex-end;
-    border: 2px solid #ccc;
-    border-radius: 10px;
-  }
-`;
-
-const SmokeImg = styled.img`
-  width: 2.5rem;
-  height: 2.5rem;
-
-  @media(max-width: 768px){
-    width: 2rem;
-    height: 2rem;
-  }
-
-  @media(max-width: 480px){
-    display: none;
-  }
-`;
-
-const InfoButton = styled.button`
-  background: url(${info}) center no-repeat;
-  background-color: #ff9700;
-  width: 2rem;
-  height: 2rem;
-  border: 0px;
-  cursor: pointer;
-`;
-
-const ReportButton = styled.button`
-  display: none;
-  @media(max-width: 480px){
-    display: block;
-    background: url(${report}) center no-repeat;
-    width: 2rem;
-    height: 2rem;
-    border: 0;
-    padding: 7px 7px 7px 7px;
-    font-size: 1.1rem;
-    cursor: pointer;
-  }
-`;
-
-const CsButton = styled.button`
-  background-image: url(${cs});
-  background-color: #ff9700;
-
-  border: 0;
-  width: 2rem;
-  height: 2rem;
-  background-repeat: no-repeat;
-
-  cursor: pointer;
-`;
-
-const SearchInput = styled.input`
-  background-color: #ff9700;
-  width: 15rem;
-  height: 2rem;
-  color: white;
-  font-size: larger;
-  padding-top: 1.1rem;
-  padding-bottom: 1.1rem;
-  border: 0px;
-  border-bottom: 2px solid white;
-  height: 1.5rem;
-  /* padding: 10px; */
-  /* padding-top: 3rem; */
-  &::placeholder {
-    border: 0px;
-    color: white;
-    padding-left: 4.5rem;
-  }
-  &:focus {
-    outline: 1px solid white;
-  }
-
-  @media(max-width: 1024px){
-    font-size: 1.25rem;
-    border-bottom: 1.5px solid white;
-  }
-
-  @media(max-width: 768px){
-    width: 10rem;
-    font-size: 1rem;
-    color: black;
-    padding-left: 5%;
-    &::placeholder {
-      padding-left: 0;
-    }
-    &:focus{
-      outline: none;
-    }
-  }
-
-  @media(max-width: 480px){
-    width: 100%;
-    background: white;
-    font-size: 1.3rem;
-    &::placeholder {
-      color: #aaa;
-      padding-left: 3%;
-    }
-  }
-`;
-
-const SearchButton = styled.button`
-  position: absolute;
-  background-color: #ff9700;
-  background-image: url(${search});
-  background-repeat: no-repeat;
-  border: 0px;
-  width: 1.6rem;
-  height: 1.6rem;
-  top: 50%; /* 부모 컨테이너의 상단으로부터 50% 위치 */
-  right: 0%; /* 오른쪽 가장자리로부터 1rem 떨어진 위치 */
-  transform: translateY(
-    -50%
-  ); /* Y축 기준으로 자신의 크기의 -50% 만큼 이동하여 세로 중앙 정렬 */
-  cursor: pointer;
-
-  @media(max-width: 768px){
-    width: 1.4rem;
-    height: 1.4rem;
-  }
-
-  @media(max-width: 480px){
-    background-color: transparent;
-    background-image: url(${searchB});
-    right: 3%;
-  }
-`;
-
-const RefreshButton = styled.button`
-  display: none;
-  @media(max-width: 480px){
-    display: block;
-    background: url(${refresh}) center no-repeat;
-    width: 2rem;
-    height: 2rem;
-    border: none;
-    cursor: pointer;
-  }
-`;
+import InfoModal from "./modal/InfoModal";
+import styles from "./Header.module.scss";
 
 function Header() {
-	const [isModalOpen, setIsModalOpen] = useState(false); // 모달창 상태 관리
+  const [isInquireModalOpen, setIsInquireModalOpen] = useState(false); // 모달창 상태 관리
+  const [isInfoModalOpen, setIsInfoModalOpen] = useState(false); // 모달창 상태 관리
 
-	const toggleModal = () => {
-		setIsModalOpen(!isModalOpen);
-	};
-	return (
-		<HeaderContainer>
-			<HeaderWrap1>
-				<SmokeImg></SmokeImg>
-				<HeaderTitle>SmokeWhere</HeaderTitle> {/* 텍스트 추가 */}
-				<InfoButton></InfoButton>
-				<RefreshButton />
-			</HeaderWrap1>
-			<HeaderWrap2>
-				<HeaderWrap3>
-					<SearchInput placeholder="장소 검색하기" />
-					<SearchButton></SearchButton>
-				</HeaderWrap3>
-				<ReportButton />
-				<CsButton onClick={toggleModal}></CsButton>
-			</HeaderWrap2>
-			{isModalOpen && <InquireModal onClose={toggleModal} />}{" "}
-			{/* 조건부 렌더링으로 모달창 표시 */}
-			{/* <input type="text" /> */}
-		</HeaderContainer>
-	);
+  const toggleInquireModal = () => {
+    setIsInquireModalOpen(!isInquireModalOpen);
+  };
+
+  const toggleInfoModal = () => {
+    setIsInfoModalOpen(!isInfoModalOpen);
+  };
+  return (
+    <div className={styles.headerContainer}>
+      <div className={styles.headerLeft}>
+        <img
+          className={styles.smokeImg}
+          src="/assets/smokeWhere.svg"
+          alt="SmokeWhere"
+          onClick={toggleInfoModal}
+        />
+        <h1 className={styles.headerTitle}>SmokeWhere</h1>
+        {/* <button
+          className={styles.infoButton}
+          
+        ></button> */}
+        <button className={styles.refreshButton}></button>
+      </div>
+      <div className={styles.headerRight}>
+        <div className={styles.headerBox}>
+          <input className={styles.searchInput} placeholder="장소 검색하기" />
+          <button className={styles.searchButton}></button>
+        </div>
+        <button className={styles.reportButton}></button>
+        <button
+          className={styles.csButton}
+          onClick={toggleInquireModal}
+        ></button>
+      </div>
+      {isInquireModalOpen && <InquireModal onClose={toggleInquireModal} />}
+      {isInfoModalOpen && <InfoModal onClose={toggleInfoModal} />}
+    </div>
+  );
 }
 
 export default Header;

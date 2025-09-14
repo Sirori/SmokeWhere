@@ -1,0 +1,10 @@
+// 변수 정의
+$mobile-breakpoint: 480px;
+
+.mapDiv {
+  height: 60vh;
+
+  @media screen and (max-width: $mobile-breakpoint) {
+    height: 100vh;
+  }
+}

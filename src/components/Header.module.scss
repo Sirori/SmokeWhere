@@ -1,0 +1,243 @@
+// 변수 정의
+$primary-color: #ff9700;
+$white: white;
+$black: black;
+$gray: #aaa;
+$ccc: #ccc;
+
+$tablet-breakpoint: 1024px;
+$mobile-breakpoint: 768px;
+$small-mobile-breakpoint: 480px;
+
+.headerContainer {
+  position: relative;
+  background-color: $primary-color;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 1rem 2rem;
+  justify-content: space-between;
+  z-index: 101;
+
+  @media (max-width: $small-mobile-breakpoint) {
+    position: absolute;
+    bottom: 0;
+    width: 100vw;
+    height: 10vh;
+    z-index: 5;
+    padding: 0 4%;
+  }
+}
+
+.headerTitle {
+  font-family: "Noto Sans KR";
+  color: $white;
+  font-size: 1.5rem;
+
+  @media (max-width: $tablet-breakpoint) {
+    font-weight: regular;
+  }
+
+  @media (max-width: $mobile-breakpoint) {
+    font-size: 1.25rem;
+    font-weight: regular;
+  }
+
+  @media (max-width: $small-mobile-breakpoint) {
+    display: none;
+  }
+}
+
+.headerLeft {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.8rem;
+
+  img {
+    cursor: pointer;
+  }
+
+  h1 {
+    cursor: default;
+  }
+
+  @media (max-width: $tablet-breakpoint) {
+    gap: 4%;
+  }
+
+  @media (max-width: $small-mobile-breakpoint) {
+    width: 30%;
+    gap: 0;
+    justify-content: space-between;
+  }
+}
+
+.headerRight {
+  display: flex;
+  flex-direction: row;
+  align-items: end;
+  gap: 2rem;
+}
+
+.headerBox {
+  width: 15rem;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  @media (max-width: $mobile-breakpoint) {
+    width: 10rem;
+  }
+
+  @media (max-width: $small-mobile-breakpoint) {
+    position: fixed;
+    top: 2%;
+    left: 5%;
+    width: 90vw;
+    height: 7vh;
+    background: $white;
+    justify-content: flex-end;
+    border: 2px solid $ccc;
+    border-radius: 10px;
+  }
+}
+
+.smokeImg {
+  width: 2.5rem;
+  height: 2.5rem;
+
+  @media (max-width: $mobile-breakpoint) {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  @media (max-width: $small-mobile-breakpoint) {
+    display: none;
+  }
+}
+
+.infoButton {
+  background: url("/assets/info_w.svg") center no-repeat;
+  background-color: $primary-color;
+  width: 2rem;
+  height: 2rem;
+  border: 0px;
+  cursor: pointer;
+}
+
+.reportButton {
+  display: none;
+
+  @media (max-width: $small-mobile-breakpoint) {
+    display: block;
+    background: url("/assets/plus.svg") center no-repeat;
+    width: 2rem;
+    height: 2rem;
+    border: 0;
+    padding: 7px;
+    font-size: 1.1rem;
+    cursor: pointer;
+  }
+}
+
+.csButton {
+  background-image: url("/assets/cs_w.svg");
+  background-color: $primary-color;
+  border: 0;
+  width: 2rem;
+  height: 2rem;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+
+.searchInput {
+  background-color: $primary-color;
+  width: 15rem;
+  height: 1.5rem;
+  color: $white;
+  font-size: larger;
+  padding: 1.1rem 0;
+  border: 0px;
+  border-bottom: 2px solid $white;
+
+  &::placeholder {
+    border: 0px;
+    color: $white;
+    padding-left: 4.5rem;
+  }
+
+  &:focus {
+    outline: 1px solid $white;
+  }
+
+  @media (max-width: $tablet-breakpoint) {
+    font-size: 1.25rem;
+    border-bottom: 1.5px solid $white;
+  }
+
+  @media (max-width: $mobile-breakpoint) {
+    width: 10rem;
+    font-size: 1rem;
+    color: $black;
+    padding-left: 5%;
+
+    &::placeholder {
+      padding-left: 0;
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  @media (max-width: $small-mobile-breakpoint) {
+    width: 100%;
+    background: $white;
+    font-size: 1.3rem;
+
+    &::placeholder {
+      color: $gray;
+      padding-left: 3%;
+    }
+  }
+}
+
+.searchButton {
+  position: absolute;
+  background-color: $primary-color;
+  background-image: url("/assets/search_w.svg");
+  background-repeat: no-repeat;
+  border: 0px;
+  width: 1.6rem;
+  height: 1.6rem;
+  top: 50%;
+  right: 0%;
+  transform: translateY(-50%);
+  cursor: pointer;
+
+  @media (max-width: $mobile-breakpoint) {
+    width: 1.4rem;
+    height: 1.4rem;
+  }
+
+  @media (max-width: $small-mobile-breakpoint) {
+    background-color: transparent;
+    background-image: url("/assets/search.svg");
+    right: 3%;
+  }
+}
+
+.refreshButton {
+  display: none;
+
+  @media (max-width: $small-mobile-breakpoint) {
+    display: block;
+    background: url("/assets/refresh.svg") center no-repeat;
+    width: 2rem;
+    height: 2rem;
+    border: none;
+    cursor: pointer;
+  }
+}

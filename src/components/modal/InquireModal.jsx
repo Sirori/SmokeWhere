@@ -1,100 +1,7 @@
-import React, { useEffect } from "react";
-import styled from "styled-components";
+import { useEffect } from "react";
+import PropTypes from "prop-types";
 import { motion } from "framer-motion";
-
-const ModalOverlay = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.8);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-
-const ModalContainer = styled(motion.div)`
-  display: flex;
-  flex-direction: column;
-  background-color: white;
-  width: 50%;
-  height: 90%;
-`;
-
-const ModalHeader = styled.div`
-  position: relative;
-  background-color: #ff9700;
-  padding: 15px 15px 15px 15px;
-  color: white;
-  font-size: larger;
-  font-weight: bold;
-`;
-
-const CloseButton = styled.button`
-  position: absolute;
-  /* top: 1; */
-  right: 0;
-
-  margin-right: 15px;
-  font-size: x-large;
-  color: white;
-  background-color: #ff9700;
-  border: 0;
-  cursor: pointer;
-`;
-
-const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px;
-`;
-
-const Input = styled.input`
-  margin: 10px 0;
-  padding: 10px;
-  width: 100%;
-  border: 0;
-  border-bottom: 2px solid black;
-`;
-
-const TextArea = styled.textarea`
-  margin: 20px 0;
-  padding: 10px;
-  width: 100%;
-  height: 20rem;
-`;
-
-const SubmitButton = styled.button`
-  /* margin-top: 20px; */
-  /* margin-bottom: 50px; */
-  margin-bottom: 100px;
-  padding: 7px 25px;
-  cursor: pointer;
-
-  background-color: #ff9700;
-  /* font-weight: bolder; */
-  border: 0;
-  color: white;
-  border-radius: 5px;
-`;
-
-const InputWrap = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 90%;
-`;
-
-const InputLabel = styled.label`
-  width: 100%;
-  text-align: left;
-  /* margin-left: 4.5rem; */
-  font-size: large;
-  font-weight: bold;
-  margin-top: 1.5rem;
-`;
+import styles from "./InquireModal.module.scss";
 
 const InquireModal = ({ onClose }) => {
   useEffect(() => {
@@ -115,41 +22,56 @@ const InquireModal = ({ onClose }) => {
   };
 
   return (
-    <ModalOverlay onClick={onClose}>
-      <ModalContainer
+    <div className={styles.modalOverlay} onClick={onClose}>
+      <motion.div
+        className={styles.modalContainer}
         onClick={(e) => e.stopPropagation()}
-        initial={{ y: 100, opacity: 0 }} // 초기 위치와 투명도 설정
-        animate={{ y: 0, opacity: 1 }} // 최종 위치와 투명도 설정
+        initial={{ y: 100, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.3 }}
       >
-        <ModalHeader>
+        <div className={styles.modalHeader}>
           <span>문의사항을 남겨주세요 :D</span>
-          <CloseButton onClick={onClose}>X</CloseButton>
-        </ModalHeader>
-        <Form onSubmit={handleSubmit}>
-          <InputWrap>
-            <InputLabel htmlFor="title">제목</InputLabel>
-            <Input
+          <button className={styles.closeButton} onClick={onClose}>
+            X
+          </button>
+        </div>
+        <form className={styles.form} onSubmit={handleSubmit}>
+          <div className={styles.inputWrap}>
+            <label className={styles.inputLabel} htmlFor="title">
+              제목
+            </label>
+            <input
+              className={styles.input}
               type="text"
               id="title"
               placeholder="제목을 입력하세요"
               required
             />
-          </InputWrap>
+          </div>
 
-          <InputWrap>
-            <InputLabel htmlFor="inquire">문의사항</InputLabel>
-            <TextArea
+          <div className={styles.inputWrap}>
+            <label className={styles.inputLabel} htmlFor="inquire">
+              문의사항
+            </label>
+            <textarea
+              className={styles.textArea}
               placeholder="문의사항을 적어주세요"
               id="inquire"
               required
             />
-          </InputWrap>
-          <SubmitButton type="submit">제출하기</SubmitButton>
-        </Form>
-      </ModalContainer>
-    </ModalOverlay>
+          </div>
+          <button className={styles.submitButton} type="submit">
+            제출하기
+          </button>
+        </form>
+      </motion.div>
+    </div>
   );
+};
+
+InquireModal.propTypes = {
+  onClose: PropTypes.func.isRequired,
 };
 
 export default InquireModal;
