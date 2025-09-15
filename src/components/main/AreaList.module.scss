@@ -1,0 +1,34 @@
+// 변수 정의
+$primary-color: #ff9700;
+$mobile-breakpoint: 480px;
+$border-color-black: black;
+$border-color-gray: gray;
+
+.listWrap {
+  padding: 0 25px;
+  margin-bottom: 15rem;
+}
+
+.mainList {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  border-bottom: 3px $border-color-black solid;
+  padding-bottom: 3px;
+  font-weight: 900;
+  font-size: 1.2rem;
+}
+
+.itemList {
+  display: flex;
+  flex-direction: row;
+  border-bottom: 2px $border-color-gray solid;
+  padding: 1rem 0;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.listSpan {
+  flex: 1;
+  text-align: center;
+}
