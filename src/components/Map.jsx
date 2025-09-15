@@ -1,43 +1,60 @@
 import { useEffect, useRef } from "react";
+import useGeolocation from "../hooks/useGeolocation";
+import {
+  getDatabase,
+  ref,
+  query,
+  orderByChild,
+  equalTo,
+  limitToFirst,
+  get,
+} from "firebase/database";
 import styles from "./map.module.scss";
 
 function Map() {
   const mapRef = useRef(null);
+  const { naver } = window;
+  const { currentMyLocation } = useGeolocation();
+  const markerContent = `<div class="marker-content" style="width: 16px;"><img src="/assets/marker.svg" alt="marker" /></div>`;
 
   useEffect(() => {
-    const naverMapClientId = "ohhshbpf1r";
-
-    // 네이버 지도 스크립트 로드
-    if (!document.querySelector("#naver-map-script")) {
-      const script = document.createElement("script");
-      script.id = "naver-map-script";
-      script.src = `https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=${naverMapClientId}`;
-      script.async = true;
-      script.onload = () => {
-        // 지도 초기화
-        if (window.naver && mapRef.current) {
-          const map = new window.naver.maps.Map(mapRef.current, {
-            center: new window.naver.maps.LatLng(37.5666103, 126.9783882),
-            zoom: 15,
-          });
-
-          // 마커 추가
-          new window.naver.maps.Marker({
-            position: new window.naver.maps.LatLng(37.5666103, 126.9783882),
-            map: map,
-          });
-        }
+    if (currentMyLocation.lat !== 0 && currentMyLocation.lng !== 0) {
+      // 네이버 지도 옵션 선택
+      const mapOptions = {
+        // 지도의 초기 중심 좌표
+        center: new naver.maps.LatLng(
+          currentMyLocation.lat,
+          currentMyLocation.lng
+        ),
+        logoControl: false, // 네이버 로고 표시 X
+        mapDataControl: false, // 지도 데이터 저작권 컨트롤 표시 X
+        scaleControl: true, // 지도 축척 컨트롤의 표시 여부
+        tileDuration: 200, // 지도 타일을 전환할 때 페이드 인 효과의 지속 시간(밀리초)
+        zoom: 16, // 지도의 초기 줌 레벨
+        zoomControl: true, // 줌 컨트롤 표시
+        zoomControlOptions: { position: naver.maps.Position.RIGHT_CENTER }, // 줌 컨트롤 우하단에 배치
       };
-      script.onerror = () => {
-        console.error("Naver Map SDK 로드 실패 ❌");
-      };
-      document.head.appendChild(script);
+      mapRef.current = new naver.maps.Map("map", mapOptions);
+
+      // 현재 내 위치 마커 표시
+      new naver.maps.Marker({
+        // 생성될 마커의 위치
+        position: new naver.maps.LatLng(
+          currentMyLocation.lat,
+          currentMyLocation.lng
+        ),
+        // 마커를 표시할 Map 객체
+        map: mapRef.current,
+        icon: {
+          content: markerContent,
+        },
+      });
     }
-  }, []);
+  }, [currentMyLocation]);
 
   return (
     <>
-      <div ref={mapRef} className={styles.mapDiv} />
+      <div id="map" className={styles.mapDiv} />
     </>
   );
 }
