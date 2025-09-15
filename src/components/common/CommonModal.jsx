@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import { motion } from "framer-motion";
-import styles from "./InfoModal.module.scss";
+import styles from "./CommonModal.module.scss";
 
-const InfoModal = ({ onClose }) => {
+const CommonModal = ({ onClose, contentTitle, content }) => {
   useEffect(() => {
     // 모달창이 열릴 때 body의 overflow를 hidden으로 설정
     document.body.style.overflow = "hidden";
@@ -24,22 +24,22 @@ const InfoModal = ({ onClose }) => {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.3 }}
       >
-        <div className={styles.content}>
-          <h3>About SmokeWhere</h3>
-          <p>흡연구역 정보를 제공하는 서비스입니다.</p>
-          <p>주변 흡연구역을 찾아보고</p>
-          <p>새로운 흡연구역을 제보할 수 있습니다.</p>
+        <div className={styles.modalHeader}>
+          <span>{contentTitle}</span>
+          <button className={styles.closeButton} onClick={onClose}>
+            X
+          </button>
         </div>
-        <button className={styles.closeButton} onClick={onClose}>
-          확인
-        </button>
+        <div className={styles.modalContent}>{content}</div>
       </motion.div>
     </div>
   );
 };
 
-InfoModal.propTypes = {
+CommonModal.propTypes = {
   onClose: PropTypes.func.isRequired,
+  contentTitle: PropTypes.string.isRequired,
+  content: PropTypes.node.isRequired,
 };
 
-export default InfoModal;
+export default CommonModal;

@@ -9,7 +9,7 @@ module.exports = {
     "eslint:recommended",
     "plugin:react/recommended",
     "plugin:react-hooks/recommended",
-    "airbnb",
+    // "airbnb",
     "prettier",
   ],
 
@@ -26,12 +26,22 @@ module.exports = {
       version: "detect",
     },
   },
-  plugins: ["react-refresh"],
+  plugins: ["react", "react-hooks", "react-refresh"],
   rules: {
-    "react/jsx-filename-extension": ["warn", { extensions: [".js", ".jsx"] }],
-    "import/no-extraneous-dependencies": "off",
-    "react/prop-types": "off",
-    "no-console": "warn",
-    "no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
+    // "react/jsx-filename-extension": ["warn", { extensions: [".js", ".jsx"] }],
+    // "import/no-extraneous-dependencies": "off",
+    // "react/prop-types": "off",
+    // "no-console": "warn",
+    "no-unused-vars": [
+      "warn",
+      {
+        argsIgnorePattern: "^_",
+        varsIgnorePattern: "^_",
+        ignoreRestSiblings: true,
+        vars: "all",
+        args: "after-used",
+        caughtErrors: "none",
+      },
+    ],
   },
 };
